@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Interactive 3D cardiac digital twin: a bicuspid aortic valve case from 1969 to 2026.">
-<title>Schwarzenegger Heart Twin</title>
+<meta name="description" content="Educational cardiac digital twin: an illustrative bicuspid aortic valve case with simulated values.">
+<title>Bicuspid Valve Twin</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,500&display=swap">
@@ -21,7 +21,7 @@
   --f-display:"Newsreader","Iowan Old Style",Georgia,serif;
   --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
   --f-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
-  --dock-h:178px; --rail-w:336px;
+  --dock-h:178px; --rail-w:336px; --foot-h:30px;
 }
 html,body{height:100%}
 body{background:var(--ink);color:var(--text);font-family:var(--f-body);font-size:14px;line-height:1.45;overflow:hidden;-webkit-font-smoothing:antialiased}
@@ -86,9 +86,9 @@ button{font:inherit;color:inherit}
 @media (max-height:820px) and (min-width:761px){#caption{padding:12px 16px}#caption h2{font-size:23px}#caption p{font-size:13.5px}#vhud .row:nth-of-type(n+3),#vhud .close{display:none}}
 
 /* telemetry rail */
-#panel{position:absolute;top:96px;right:16px;width:var(--rail-w);bottom:calc(var(--dock-h) + 28px);overflow:auto;display:flex;flex-direction:column;gap:10px;z-index:4;scrollbar-width:thin}
+#panel{position:absolute;top:96px;right:16px;width:var(--rail-w);bottom:calc(var(--dock-h) + var(--foot-h) + 12px);overflow:auto;display:flex;flex-direction:column;gap:10px;z-index:4;scrollbar-width:thin}
 .card{padding:12px 15px}
-.card-h{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:10px}
+.card-h{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 8px;margin-bottom:10px}
 .card-h h2{margin:0;font-size:13px;font-weight:600;letter-spacing:.01em}
 .card-h .chip{font-family:var(--f-mono);font-size:11px;color:var(--dim)}
 .grp+.grp{margin-top:9px;padding-top:8px;border-top:1px solid var(--line)}
@@ -115,10 +115,13 @@ button{font:inherit;color:inherit}
 #info .facts dd{margin:0;font-family:var(--f-mono);font-size:12px;text-align:right}
 #info .hint{font-size:12.5px;color:var(--dim)}
 #info .acts{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.sim{display:inline-block;font-family:var(--f-mono);font-size:9.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);border:1px solid rgba(143,216,232,.4);border-radius:4px;padding:1px 5px;white-space:nowrap;vertical-align:middle}
+.disclaimer{margin-top:12px;padding:9px 12px;border-radius:8px;border:1px solid var(--line-2);background:rgba(150,182,208,.06);font-size:12.5px;line-height:1.45;color:var(--dim)}
+.disclaimer b{color:var(--text);font-weight:600}
 .tag{display:inline-block;font-family:var(--f-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--warn);border:1px solid rgba(242,182,50,.35);border-radius:4px;padding:0 5px;margin-left:6px;vertical-align:middle}
 
 /* tour caption */
-#caption{position:absolute;left:16px;bottom:calc(var(--dock-h) + 28px);width:min(470px,calc(100% - var(--rail-w) - 48px));padding:16px 18px;z-index:4}
+#caption{position:absolute;left:16px;bottom:calc(var(--dock-h) + var(--foot-h) + 12px);width:min(470px,calc(100% - var(--rail-w) - 48px));padding:16px 18px;z-index:4}
 #caption .meta{display:flex;justify-content:space-between;gap:8px}
 #caption h2{margin:6px 0 6px;font-family:var(--f-display);font-style:italic;font-weight:400;font-size:28px;line-height:1.1;text-wrap:balance}
 #caption p{margin:0;color:var(--dim);font-size:14.5px;max-width:56ch}
@@ -128,7 +131,7 @@ button{font:inherit;color:inherit}
 #caption .prog i.on{background:var(--accent)}
 
 /* dock */
-#dock{position:absolute;left:16px;right:16px;bottom:16px;height:var(--dock-h);display:grid;grid-template-columns:minmax(260px,.85fr) 2.15fr;gap:12px;z-index:4}
+#dock{position:absolute;left:16px;right:16px;bottom:var(--foot-h);height:var(--dock-h);display:grid;grid-template-columns:minmax(260px,.85fr) 2.15fr;gap:12px;z-index:4}
 #dock .card{display:flex;flex-direction:column;min-width:0;padding:12px 14px}
 .ecg-h{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
 .ecg-h .hr{font-family:var(--f-mono);font-size:26px;color:var(--ecg);line-height:1}
@@ -139,6 +142,7 @@ button{font:inherit;color:inherit}
 .cv canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 .tl-h{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
 .tl-h .legend{display:flex;gap:14px;font-size:11.5px;color:var(--dim)}
+.tl-h .lead{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .tl-h .legend i{display:inline-block;width:14px;height:2px;vertical-align:middle;margin-right:6px}
 .readout{font-family:var(--f-mono);font-size:13px;color:var(--dim)}
 .readout b{color:var(--text);font-size:20px;font-weight:500}
@@ -177,10 +181,10 @@ button{font:inherit;color:inherit}
 .keys{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:13.5px}
 .keys kbd{font-family:var(--f-mono);font-size:12px;border:1px solid var(--line-2);border-radius:5px;padding:1px 7px;justify-self:start}
 #fallback{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:24px;color:var(--dim);z-index:2}
-#foot{position:absolute;right:16px;bottom:calc(var(--dock-h) + 30px);z-index:3;font-size:10.5px;color:var(--faint);max-width:var(--rail-w);text-align:right;pointer-events:none;display:none}
+#foot{position:absolute;left:16px;right:16px;bottom:0;height:var(--foot-h);display:flex;align-items:center;justify-content:center;z-index:4;margin:0;padding-inline:16px;font-size:11px;color:var(--dim);text-align:center;background:linear-gradient(to top,var(--ink) 55%,rgba(5,8,12,0))}
 
 #app.clean #top .tools,#app.clean #panel,#app.clean #dock{opacity:0;pointer-events:none}
-#app.clean #caption{bottom:16px}
+#app.clean #caption{bottom:var(--foot-h)}
 #top .tools,#panel,#dock{transition:opacity .35s}
 
 @media (max-width:1180px){:root{--rail-w:300px}.brand h1{font-size:27px}}
@@ -206,6 +210,7 @@ button{font:inherit;color:inherit}
   #ecg-wrap{height:110px;flex:none}
   #trend-wrap{height:80px;flex:none}
   #caption{order:1}#dock{order:2}#panel{order:3}
+  #foot{position:static;order:4;height:auto;margin-inline:16px;padding:4px 0 8px;background:none}
   #caption h2{font-size:23px}
 }
 @media (prefers-reduced-motion:reduce){.alert .dot,.hot .ring::after{animation:none}}
@@ -225,8 +230,8 @@ button{font:inherit;color:inherit}
     <header id="top">
       <div class="brand">
         <div class="eyebrow">Cardiac digital twin · Case 01</div>
-        <h1>Arnold Schwarzenegger<small>b. 30 Jul 1947</small></h1>
-        <div class="dx">Congenital bicuspid aortic valve · <b>4 interventions</b> · 1997 – 2024</div>
+        <h1>Illustrative patient<small>born 1940s</small></h1>
+        <div class="dx">Congenital bicuspid aortic valve · <b>several interventions</b> over decades</div>
       </div>
       <nav class="tools" aria-label="View controls">
         <button class="tbtn primary" id="b-tour" type="button">Present <kbd>Space</kbd></button>
@@ -250,7 +255,7 @@ button{font:inherit;color:inherit}
 
   <aside id="panel" aria-label="Twin telemetry">
     <section class="card glass" id="vitals">
-      <div class="card-h"><h2>Live twin telemetry</h2><span class="chip" id="v-date">1969 · age 22.0</span></div>
+      <div class="card-h"><h2>Twin telemetry <span class="sim">Simulated values</span></h2><span class="chip" id="v-date">1969 · age 22.0</span></div>
       <div class="grp">
         <h3>Aortic valve <em id="av-morph">Bicuspid</em></h3>
         <div class="m"><span class="l">Peak velocity (V<sub>max</sub>)</span><span class="v" id="m-vmax"></span><span class="pill" id="p-vmax"></span></div>
@@ -275,7 +280,7 @@ button{font:inherit;color:inherit}
       </div>
     </section>
     <section class="card glass" id="forecast">
-      <div class="card-h"><h2>Predicted intervention window</h2><span class="chip">8-yr horizon</span></div>
+      <div class="card-h"><h2>Predicted intervention window</h2><span class="sim">Simulated</span></div>
       <div class="big" id="fc-big"></div>
       <div class="bar"><i id="fc-bar"></i></div>
       <div class="ticks"><span>now</span><span>+2</span><span>+4</span><span>+6</span><span>+8 yr</span></div>
@@ -292,22 +297,24 @@ button{font:inherit;color:inherit}
         <div><div class="eyebrow">ECG · lead II · 25 mm/s</div></div>
         <div class="hr" id="hr">62<small>bpm</small></div>
       </div>
-      <div class="ecg-h"><span class="rh" id="rh" style="text-align:left">Sinus rhythm</span></div>
+      <div class="ecg-h"><span class="rh" id="rh" style="text-align:left">Sinus rhythm</span><span class="sim">Simulated values</span></div>
       <div class="cv" id="ecg-wrap"><canvas id="ecg"></canvas></div>
     </section>
     <section class="card glass" aria-label="Lifetime timeline">
       <div class="tl-h">
-        <div class="eyebrow">Lifetime timeline · peak transvalvular velocity</div>
+        <div class="lead"><span class="eyebrow">Lifetime timeline · peak transvalvular velocity</span><span class="sim">Simulated</span></div>
         <div class="legend"><span><i style="background:var(--art)"></i>Aortic</span><span><i style="background:var(--ven)"></i>Pulmonary</span><span><i style="background:rgba(242,182,50,.5);height:8px"></i>Elective window</span></div>
         <div class="readout">Age <b id="ro-age">22.0</b> · <b id="ro-year">1969</b></div>
       </div>
       <div class="cv" id="trend-wrap"><canvas id="trend"></canvas></div>
       <div class="slider">
-        <input id="age" type="range" min="18" max="79.18" step="0.01" value="22" aria-label="Patient age">
+        <input id="age" type="range" min="18" max="79.26" step="0.01" value="22" aria-label="Patient age">
         <div class="marks" id="marks"></div>
       </div>
     </section>
   </footer>
+
+  <p id="foot" role="note">Educational demonstration. Illustrative patient with simulated values — not based on any individual’s medical records or imaging. Not affiliated with or endorsed by any person.</p>
 
   <div class="modal" id="help" hidden>
     <div class="box glass" role="dialog" aria-label="Keyboard shortcuts">
@@ -334,18 +341,11 @@ button{font:inherit;color:inherit}
   <div class="modal" id="about" hidden>
     <div class="box glass" role="dialog" aria-label="About this twin">
       <div class="eyebrow">About this model</div>
-      <h2>What is real and what is simulated</h2>
-      <p><b>Real, from public reports:</b> congenital aortic valve disease (widely reported as bicuspid); Ross procedure on 16 April 1997; pulmonary valve replacement in March 2018 at Cedars-Sinai, where a planned catheter procedure became open-heart surgery; new aortic valve at Cleveland Clinic in October 2020; pacemaker in March 2024, which he attributed to scar tissue from earlier surgeries.</p>
-      <p><b>Illustrative:</b> the heart geometry is procedural, not reconstructed from his imaging. Valve phenotype (R–L fusion with raphe), prosthesis types, the dual-chamber pacing system and the conduction disturbance before 2024 are shown for teaching.</p>
-      <p><b>Simulated:</b> every number in the telemetry, ECG and trend chart follows a representative natural history of bicuspid valve disease and Ross conduit degeneration. None are his measurements. Thresholds follow ACC/AHA and ESC severe-disease criteria (V<sub>max</sub> ≥ 4 m/s, mean gradient ≥ 40 mmHg, AVA ≤ 1.0 cm²; RVOT peak gradient &gt; 64 mmHg).</p>
-      <p>Sources:</p>
-      <ul>
-        <li><a href="https://www.heart-valve-surgery.com/arnold-schwarzenegger.php" target="_blank" rel="noopener">Heart-Valve-Surgery.com · Arnold Schwarzenegger</a></li>
-        <li><a href="https://www.medpagetoday.com/popmedicine/popmedicine/89475" target="_blank" rel="noopener">MedPage Today</a></li>
-        <li><a href="https://www.foxnews.com/entertainment/arnold-schwarzenegger-undergoes-heart-surgery-says-hes-feeling-fantastic" target="_blank" rel="noopener">Fox News · October 2020</a></li>
-        <li><a href="https://www.abc.net.au/news/2024-03-26/arnold-schwarzenegger-reveals-pacemaker-surgery/103632654" target="_blank" rel="noopener">ABC News · March 2024</a></li>
-        <li><a href="https://abc7chicago.com/post/arnold-schwarzenegger-says-he-had-pacemaker-surgery/14590873/" target="_blank" rel="noopener">ABC7 · March 2024</a></li>
-      </ul>
+      <h2>How this twin is built</h2>
+      <p class="disclaimer"><b>Educational demonstration.</b> Illustrative patient with simulated values — not based on any individual’s medical records or imaging. Not affiliated with or endorsed by any person.</p>
+      <p><b>Patient:</b> an illustrative case of congenital bicuspid aortic valve disease, managed over several decades with a Ross procedure, pulmonary conduit replacement, aortic valve re-replacement and pacemaker implantation. This sequence is a teaching scenario.</p>
+      <p><b>Geometry:</b> the heart is procedural, not reconstructed from any patient's imaging. Valve phenotype (R–L fusion with raphe), prosthesis types and the dual-chamber pacing system are representative choices.</p>
+      <p><b>Values:</b> every number in the telemetry, ECG, forecast and trend chart is simulated from a representative natural history of bicuspid valve disease and Ross conduit degeneration. Alerts use ACC/AHA and ESC severe-disease criteria (V<sub>max</sub> ≥ 4 m/s, mean gradient ≥ 40 mmHg, AVA ≤ 1.0 cm²; RVOT peak gradient &gt; 64 mmHg).</p>
       <button class="tbtn" type="button" data-close>Close</button>
     </div>
   </div>
@@ -392,13 +392,13 @@ function vnoise(x,y,z){
 function fbm(x,y,z){ return vnoise(x,y,z)*.5 + vnoise(x*2.03,y*2.03,z*2.03)*.25 + vnoise(x*4.1,y*4.1,z*4.1)*.125 - .4375; }
 
 /* ───────────────────────── clinical timeline + simulated model ───────────────────────── */
-const BORN = 1947 + 210/365;
+const BORN = 1947.5; // birth year only, used for age ↔ calendar-year conversion
 const EV = { ross: 1997 + 105/365 - BORN, pulm: 2018 + 87/365 - BORN, avr: 2020 + 295/365 - BORN, pacer: 2024 + 77/365 - BORN, now: 2026 + 277/365 - BORN };
 const EVENTS = [
-  { age: EV.ross,  yr: '1997', short: 'Ross',      name: 'Ross procedure', when: 'Apr 1997' },
-  { age: EV.pulm,  yr: '2018', short: 'PVR',       name: 'Pulmonary valve replaced', when: 'Mar 2018' },
-  { age: EV.avr,   yr: '2020', short: 'AVR',       name: 'Aortic valve re-replaced', when: 'Oct 2020' },
-  { age: EV.pacer, yr: '2024', short: 'Pacemaker', name: 'Pacemaker implanted', when: 'Mar 2024' },
+  { age: EV.ross,  yr: '1997', short: 'Ross',      name: 'Ross procedure', when: '1997' },
+  { age: EV.pulm,  yr: '2018', short: 'PVR',       name: 'Pulmonary valve replaced', when: '2018' },
+  { age: EV.avr,   yr: '2020', short: 'AVR',       name: 'Aortic valve re-replaced', when: '2020' },
+  { age: EV.pacer, yr: '2024', short: 'Pacemaker', name: 'Pacemaker implanted', when: '2024' },
 ];
 const yearOf = a => BORN + a;
 
@@ -1123,13 +1123,13 @@ function facts(rows){ return `<dl class="facts">${rows.map(([k, v]) => `<dt>${k}
 const INFO = {
   av: m => ({ t: AVM[m.avKind][1], tag: m.avKind !== 'auto', p: m.avKind === 'bav'
       ? 'Congenital two-cusp valve, shown as fusion of the right and left coronary cusps with a raphe, the most common pattern. Abnormal leaflet stress drives early calcification; severe stenosis tends to arrive decades earlier than with a tricuspid valve.'
-      : m.avKind === 'auto' ? 'April 1997 Ross procedure: his own pulmonary valve was moved into the aortic position and the coronary arteries were re-implanted onto it. Living tissue with no anticoagulation. Long-term risk is root dilation and regurgitation.'
-      : 'October 2020, Cleveland Clinic: a new aortic valve. The approach was not detailed publicly; a stented transcatheter-style valve is drawn for illustration.',
+      : m.avKind === 'auto' ? 'Ross procedure: the patient\'s own pulmonary valve is moved into the aortic position and the coronary arteries are re-implanted onto it. Living tissue with no anticoagulation. Long-term risk is root dilation and regurgitation.'
+      : 'The failing autograft is replaced with a stented bioprosthesis, drawn here as a transcatheter-style valve.',
     f: [['Morphology', AVM[m.avKind][0]], ['Vmax', `${f1(m.vmax)} m/s`], ['Mean gradient', `${r0(m.mg)} mmHg`], [m.avKind === 'tavi' ? 'EOA' : 'AVA', `${f2(m.ava)} cm²`], ['Regurgitation', AR_TXT(m.ar)], ['Calcium burden', `${r0(m.avCalc*100)}%`]], focus: 'av' }),
   pv: m => ({ t: m.pvKind === 'native' ? 'Pulmonary valve' : PVM[m.pvKind], tag: m.pvKind === 'surgical', p: m.pvKind === 'native'
       ? 'Normal trileaflet pulmonary valve. In 1997 this valve is harvested and moved to the aortic position.'
       : m.pvKind === 'homograft' ? 'Donor pulmonary valve implanted in 1997 to replace the harvested valve. Homografts stiffen and calcify, raising RV outflow gradient and RV pressure.'
-      : 'March 2018, Cedars-Sinai: a planned catheter-based replacement was converted to open-heart surgery. A surgical bioprosthesis with sewing ring is drawn for illustration.',
+      : 'The degenerated homograft is replaced with a surgical bioprosthesis, shown with its sewing ring and stent posts.',
     f: [['Morphology', PVM[m.pvKind]], ['Peak gradient', `${r0(m.pg)} mmHg`], ['Peak velocity', `${f1(m.pvVmax)} m/s`], ['RVSP', `${r0(m.rvsp)} mmHg`]], focus: 'pv' }),
   lv: m => ({ t: 'Left ventricle', p: 'Systemic pump. In the twin, wall thickness follows the pressure load of aortic stenosis and regresses after surgery; the cavity dilates as autograft regurgitation adds volume load.', f: [['Ejection fraction', `${r0(m.ef)}%`], ['IVSd', `${f1(m.ivs)} mm`], ['LVEDD', `${r0(m.lvedd)} mm`]] }),
   rv: m => ({ t: 'Right ventricle', p: 'Pumps into the pulmonary circulation. After a Ross procedure its outflow carries the homograft, so conduit narrowing shows up first as rising RV systolic pressure.', f: [['RVSP', `${r0(m.rvsp)} mmHg`], ['RVOT gradient', `${r0(m.pg)} mmHg`]] }),
@@ -1149,7 +1149,7 @@ const INFO = {
   mv: () => ({ t: 'Mitral valve', p: 'Two leaflets between left atrium and ventricle. Opens in diastole, closes as the ventricle contracts.' }),
   tv: () => ({ t: 'Tricuspid valve', p: 'Three leaflets between right atrium and ventricle. The ventricular pacing lead crosses it.' }),
   conduction: m => ({ t: 'Conduction system', p: 'SA node → atria → AV node → His bundle → bundle branches → Purkinje network. Surgery near the valve annuli can scar this pathway close to the AV node.', f: [['Rhythm', rhythmText(m)], ['Ventricular rate', `${m.hr} bpm`]], tag: m.rhythm === 'block' }),
-  pacer: m => ({ t: 'Pacemaker', p: m.a >= EV.pacer ? 'March 2024. Schwarzenegger said scar tissue from earlier surgeries affected his heart rhythm. Device type was not disclosed; a dual-chamber system is drawn for illustration.' : 'Not yet implanted at this point in the timeline.', tag: true, focus: 'pacer' }),
+  pacer: m => ({ t: 'Pacemaker', p: m.a >= EV.pacer ? 'Implanted for AV block after scar tissue from repeated surgery involved the conduction system. A dual-chamber system is shown.' : 'Not yet implanted at this point in the timeline.', tag: true, focus: 'pacer' }),
   leads: () => ({ t: 'Pacing leads', p: 'Illustrative dual-chamber system: one lead in the right atrial appendage, one at the right ventricular apex, both entering through the superior vena cava.', tag: true }),
 };
 const rhythmText = m => ({ sinus: 'Sinus rhythm', lvh: 'Sinus · LVH with strain', block: 'Intermittent AV block', paced: 'Dual-chamber paced' })[m.rhythm];
@@ -1161,7 +1161,7 @@ function renderInfo(){
     return;
   }
   const d = INFO[S.selected](M);
-  el.innerHTML = `<div class="card-h"><span class="eyebrow">Selected</span><button class="tbtn" type="button" data-clear>Clear</button></div><h2>${d.t}${d.tag ? '<span class="tag">illustrative</span>' : ''}</h2><p>${d.p}</p>${d.f ? facts(d.f) : ''}${d.focus && S.focus !== d.focus ? `<div class="acts"><button class="tbtn" type="button" data-focus="${d.focus}">Fly to close-up</button></div>` : ''}`;
+  el.innerHTML = `<div class="card-h"><span class="eyebrow">Selected${d.f ? ' · simulated values' : ''}</span><button class="tbtn" type="button" data-clear>Clear</button></div><h2>${d.t}${d.tag ? '<span class="tag">illustrative</span>' : ''}</h2><p>${d.p}</p>${d.f ? facts(d.f) : ''}${d.focus && S.focus !== d.focus ? `<div class="acts"><button class="tbtn" type="button" data-focus="${d.focus}">Fly to close-up</button></div>` : ''}`;
 }
 $('#info').addEventListener('click', e => {
   const b = e.target.closest('button'); if (!b) return;
@@ -1199,8 +1199,8 @@ function updateUi(force){
   else if (fc){ $('#fc-big').textContent = `Severe threshold in ${f1(fc.dt)} yr`; $('#fc-txt').textContent = `${fc.b.title.replace(' criteria met', '')} projected at age ${f1(fc.at)} (${Math.floor(yearOf(fc.at))}). Schedule elective ${fc.b.plan}.`; bar.style.width = `${clamp(100 - fc.dt/8*100, 4, 100)}%`; bar.style.background = fc.dt < 3 ? 'var(--warn)' : 'var(--ok)'; }
   else { $('#fc-big').textContent = m.rhythm === 'block' ? 'Pacing indicated' : 'No crossing projected'; $('#fc-txt').textContent = m.rhythm === 'block' ? 'Conduction disease is not forecast by the valve model; the alert comes from the live rhythm.' : 'No guideline threshold crossed within the 8-year horizon. Continue routine surveillance.'; bar.style.width = m.rhythm === 'block' ? '100%' : '3%'; bar.style.background = m.rhythm === 'block' ? 'var(--crit)' : 'var(--ok)'; }
   let html = '', alarm = null;
-  if (br.length){ const b = br[0]; alarm = b.valve; html = `<div class="alert crit"><span class="dot"></span><span class="k">AI clinical alert</span><span class="t">${b.title}</span><span class="d">${b.d}</span></div>`; }
-  else if (fc && !fc.now && fc.dt < 3){ alarm = null; html = `<div class="alert warn"><span class="dot"></span><span class="k">AI forecast</span><span class="t">${fc.b.title.replace(' criteria met', '')} in ${f1(fc.dt)} years</span><span class="d">Elective ${fc.b.plan} window opens · ${Math.floor(yearOf(fc.at))}</span></div>`; }
+  if (br.length){ const b = br[0]; alarm = b.valve; html = `<div class="alert crit"><span class="dot"></span><span class="k">AI clinical alert · simulated</span><span class="t">${b.title}</span><span class="d">${b.d}</span></div>`; }
+  else if (fc && !fc.now && fc.dt < 3){ alarm = null; html = `<div class="alert warn"><span class="dot"></span><span class="k">AI forecast · simulated</span><span class="t">${fc.b.title.replace(' criteria met', '')} in ${f1(fc.dt)} years</span><span class="d">Elective ${fc.b.plan} window opens · ${Math.floor(yearOf(fc.at))}</span></div>`; }
   const al = $('#notices .alerts'); if (al.innerHTML !== html) al.innerHTML = html;
   S.alarm = alarm;
   document.querySelectorAll('.mark').forEach(b => b.classList.toggle('on', Math.abs(+b.dataset.age - S.age) < 0.3));
@@ -1218,6 +1218,7 @@ for (const e of EVENTS){
   b.addEventListener('click', () => { stopTour(); animateAge(e.age + 0.15, 1.6); });
   marks.appendChild(b);
 }
+$('#age').max = AMAX;
 $('#age').addEventListener('input', e => { stopTour(); S.ageAnim = null; setAge(+e.target.value); });
 
 let lastAgeForEvents = 22;
@@ -1353,7 +1354,7 @@ function updateVhud(open){
   const name = S.focus === 'av' ? AVM[m.avKind][1] : (m.pvKind === 'native' ? 'Pulmonary valve' : PVM[m.pvKind]);
   const area = S.focus === 'av' ? m.ava : clamp(2.6*Math.sqrt(8/Math.max(m.pg, 8)), 0.6, 2.8);
   const live = area*clamp(v.openEff/Math.max(0.01, v.o.mobility ? v.o.mobility(v.calc) : 1), 0, 1);
-  const html = `<div class="eyebrow">Short-axis close-up</div><h4>${name}</h4>
+  const html = `<div class="eyebrow">Short-axis close-up · simulated</div><h4>${name}</h4>
     <div class="row"><span>Phase</span><span class="ph ${open > 0.05 ? 'sys' : 'dia'}">${open > 0.05 ? 'systole · open' : 'diastole · closed'}</span></div>
     <div class="row"><span>Orifice now</span><span class="mono">${f2(live)} cm²</span></div>
     <div class="row"><span>${S.focus === 'av' ? 'Vmax' : 'Peak gradient'}</span><span class="mono">${S.focus === 'av' ? f1(m.vmax) + ' m/s' : r0(m.pg) + ' mmHg'}</span></div>
@@ -1363,25 +1364,25 @@ function updateVhud(open){
 
 /* ───────────────────────── presenter tour ───────────────────────── */
 const TOUR = [
-  { age: 22, view: 'home', xray: false, title: 'Meet the digital twin', text: 'A heart you can rotate, open and run forward in time. Case: Arnold Schwarzenegger, born in 1947 with a congenital aortic valve defect he has discussed publicly.' },
+  { age: 22, view: 'home', xray: false, title: 'Meet the digital twin', text: 'A heart you can rotate, open and run forward in time. Case 01: an illustrative patient born in the 1940s with a congenital bicuspid aortic valve. All values are simulated.' },
   { age: 22, view: 'av', title: 'Two cusps instead of three', text: 'Short-axis view from the aorta. The bicuspid valve opens as a fish-mouth slit along its raphe. At 22 the twin reads normal velocities: no symptoms, nothing to treat.' },
   { age: 38, view: 'av', title: 'Shear stress becomes calcium', text: 'Sixteen years later. Abnormal leaflet stress drives fibrosis and calcific nodules along the raphe. Leaflet excursion falls and peak velocity starts to climb.' },
   { age: 44.6, view: 'av', title: 'The twin flags it before symptoms', text: 'Moderate stenosis today. Projecting the trajectory, the model forecasts when severe criteria will be met, so surgery can be booked as an elective case.' },
   { age: 48.6, view: 'av', title: 'Severe aortic stenosis', text: 'Vmax ≥ 4 m/s, mean gradient ≥ 40 mmHg, AVA ≤ 1.0 cm². The alert fires on guideline thresholds, and the ECG shows LVH with a strain pattern.' },
-  { age: 49.9, view: 'ross', xray: true, title: 'April 1997 · Ross procedure', text: 'His own pulmonary valve moves to the aortic position as an autograft, with coronary re-implantation. A donor homograft takes its place in the pulmonary position.' },
+  { age: 49.9, view: 'ross', xray: true, title: 'First intervention · Ross procedure', text: 'The patient\'s own pulmonary valve moves to the aortic position as an autograft, with coronary re-implantation. A donor homograft takes its place in the pulmonary position.' },
   { age: 68.9, view: 'pv', title: 'The homograft wears out', text: 'Two decades on, the pulmonary homograft has calcified. RV outflow gradient and RV systolic pressure rise, and the twin projects the severe crossing about a year ahead.' },
-  { age: 70.9, view: 'pv', title: 'March 2018 · Pulmonary valve replaced', text: 'A planned catheter-based replacement at Cedars-Sinai was converted to open-heart surgery. The RV outflow gradient returns to normal.' },
+  { age: 70.9, view: 'pv', title: 'Second intervention · Pulmonary valve replaced', text: 'The calcified homograft is replaced with a surgical bioprosthesis. The RV outflow gradient and RV pressure return to normal.' },
   { age: 72.6, view: 'av', title: 'The autograft starts to leak', text: 'In this simulated course the autograft root dilates and regurgitation reaches severe, adding volume load to the left ventricle.' },
-  { age: 73.5, view: 'av', title: 'October 2020 · New aortic valve', text: 'Aortic valve re-replaced at Cleveland Clinic. The approach was not detailed publicly; a stented valve is drawn for illustration.' },
-  { age: 76.1, view: 'elec', xray: true, elec: true, title: 'Scar tissue meets the conduction system', text: 'Four operations near the valve annuli leave scar close to the AV node. Simulated intermittent AV block: watch P waves on the ECG that fail to conduct.' },
-  { age: 76.9, view: 'pacer', xray: true, elec: true, title: 'March 2024 · Pacemaker', text: 'He reported a pacemaker after scar tissue from earlier surgeries affected his heart rhythm. Paced complexes now lead each beat.' },
-  { age: EV.now, view: 'home', xray: false, elec: false, rotate: true, title: 'Planned care, years ahead', text: 'Every threshold in this story was visible years before it was crossed. A digital twin turns a lifetime of imaging into a schedule of elective decisions.' },
+  { age: 73.5, view: 'av', title: 'Third intervention · New aortic valve', text: 'The leaking autograft is replaced with a stented bioprosthesis. Gradients return to the expected range for a prosthetic valve.' },
+  { age: 76.1, view: 'elec', xray: true, elec: true, title: 'Scar tissue meets the conduction system', text: 'Repeated operations near the valve annuli leave scar close to the AV node. Simulated intermittent AV block: watch P waves on the ECG that fail to conduct.' },
+  { age: 76.9, view: 'pacer', xray: true, elec: true, title: 'Fourth intervention · Pacemaker', text: 'A dual-chamber pacemaker restores a stable ventricular rate. Paced complexes now lead each beat.' },
+  { age: EV.now, view: 'home', xray: false, elec: false, rotate: true, title: 'Planned care, years ahead', text: 'In this simulated case, every threshold was visible years before it was crossed. A digital twin turns a lifetime of imaging into a schedule of elective decisions.' },
 ];
 let playTimer = null;
 function renderCaption(){
   const el = $('#caption');
   if (S.tour < 0){
-    el.innerHTML = `<div class="meta"><span class="eyebrow">Guided presentation · ${TOUR.length} steps</span></div><h2>A lifetime of one heart, in four minutes</h2><p>Born with a bicuspid aortic valve in 1947. Four interventions between 1997 and 2024. Step through it, or drag the timeline yourself.</p><div class="ctl"><button class="tbtn primary" type="button" id="c-start">Start presentation <kbd>Space</kbd></button><button class="tbtn" type="button" id="c-valve">Jump to the valve <kbd>V</kbd></button></div>`;
+    el.innerHTML = `<div class="meta"><span class="eyebrow">Guided presentation · ${TOUR.length} steps</span></div><h2>A lifetime of one heart, in four minutes</h2><p>Born with a bicuspid aortic valve, with several interventions over decades. Step through it, or drag the timeline yourself.</p><p class="disclaimer">Educational demonstration. Illustrative patient with simulated values — not based on any individual’s medical records or imaging. Not affiliated with or endorsed by any person.</p><div class="ctl"><button class="tbtn primary" type="button" id="c-start">Start presentation <kbd>Space</kbd></button><button class="tbtn" type="button" id="c-valve">Jump to the valve <kbd>V</kbd></button></div>`;
     $('#c-start').onclick = startTour; $('#c-valve').onclick = () => focusOn('av');
     return;
   }
@@ -1433,7 +1434,7 @@ function resize(){
   renderer.setSize(w, h, false); composer.setSize(w, h);
   camera.aspect = w/h;
   camera.fov = w/h < 0.9 ? 44 : 32;
-  const desk = innerWidth > 760, rail = desk ? $('#panel').offsetWidth + 16 : 0, dockH = desk ? $('#dock').offsetHeight + 16 : 0;
+  const desk = innerWidth > 760, rail = desk ? $('#panel').offsetWidth + 16 : 0, dockH = desk ? $('#dock').offsetHeight + $('#foot').offsetHeight : 0;
   if (desk && !$('#app').classList.contains('clean')) camera.setViewOffset(w, h, rail*0.5, (dockH - 90)*0.5, w, h);
   else if (!desk) camera.setViewOffset(w, h, 0, -Math.max(0, $('#top').offsetHeight - 40)*0.5, w, h);
   else camera.clearViewOffset();
